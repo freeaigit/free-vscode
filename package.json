@@ -1,0 +1,197 @@
+{
+  "name": "freeai-code",
+  "displayName": "Free.ai Coder",
+  "description": "Free AI coding assistant — 346+ models, BYOK support",
+  "version": "0.1.0",
+  "publisher": "freeai",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/freeaigit/free-vscode"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "ai",
+    "coding assistant",
+    "copilot",
+    "free",
+    "code completion",
+    "chat"
+  ],
+  "icon": "resources/icon.png",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "freeai-sidebar",
+          "title": "Free.ai Coder",
+          "icon": "resources/icon.png"
+        }
+      ]
+    },
+    "views": {
+      "freeai-sidebar": [
+        {
+          "type": "webview",
+          "id": "freeai.chatView",
+          "name": "Chat"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "freeai.askAboutSelection",
+        "title": "Free.ai: Ask about selection"
+      },
+      {
+        "command": "freeai.explainCode",
+        "title": "Free.ai: Explain code"
+      },
+      {
+        "command": "freeai.refactor",
+        "title": "Free.ai: Refactor"
+      },
+      {
+        "command": "freeai.writeTests",
+        "title": "Free.ai: Write tests"
+      },
+      {
+        "command": "freeai.fixErrors",
+        "title": "Free.ai: Fix errors"
+      },
+      {
+        "command": "freeai.terminalCommand",
+        "title": "Free.ai: Terminal command"
+      },
+      {
+        "command": "freeai.selectModel",
+        "title": "Free.ai: Select model"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "freeai.askAboutSelection",
+          "group": "freeai@1",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "freeai.explainCode",
+          "group": "freeai@2",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "freeai.refactor",
+          "group": "freeai@3",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "freeai.writeTests",
+          "group": "freeai@4",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "freeai.fixErrors",
+          "group": "freeai@5"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Free.ai Coder",
+      "properties": {
+        "freeai.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Free.ai API key (get one at https://free.ai/developer/)"
+        },
+        "freeai.model": {
+          "type": "string",
+          "default": "qwen2.5-coder-32b",
+          "description": "Default model for code generation"
+        },
+        "freeai.provider": {
+          "type": "string",
+          "enum": [
+            "freeai",
+            "openai",
+            "anthropic",
+            "google",
+            "openrouter"
+          ],
+          "default": "freeai",
+          "description": "AI provider"
+        },
+        "freeai.openaiKey": {
+          "type": "string",
+          "default": "",
+          "description": "OpenAI API key (BYOK)"
+        },
+        "freeai.anthropicKey": {
+          "type": "string",
+          "default": "",
+          "description": "Anthropic API key (BYOK)"
+        },
+        "freeai.googleKey": {
+          "type": "string",
+          "default": "",
+          "description": "Google AI API key (BYOK)"
+        },
+        "freeai.openrouterKey": {
+          "type": "string",
+          "default": "",
+          "description": "OpenRouter API key (BYOK)"
+        },
+        "freeai.safeMode": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ask for confirmation before applying code changes"
+        },
+        "freeai.inlineSuggestions": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable inline code suggestions"
+        },
+        "freeai.maxTokens": {
+          "type": "number",
+          "default": 4096,
+          "description": "Maximum tokens for AI responses"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "freeai.askAboutSelection",
+        "key": "ctrl+shift+a",
+        "mac": "cmd+shift+a",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "freeai.terminalCommand",
+        "key": "ctrl+shift+t",
+        "mac": "cmd+shift+t"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.0"
+  }
+}
